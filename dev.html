@@ -28,23 +28,17 @@
   <div style="margin: 48px;">
     <h1>my-element</h1>
     <div class="example">
-      <label>
-        <my-element>
-          <input id="example1" type="checkbox" name="joyful" value="yes" checked />
-        </my-element>
-        <span class="label-text">Wrapper label tag</span>
-      </label>
+      <my-element>
+        <input id="example1" type="checkbox" name="joyful" value="yes" checked />
+      </my-element>
       <pre id="example1code"></pre>
     </div>
     <script>
     function showExample1 (event) {
       example1code.innerHTML = escapeHtml(
-`<label>
-  <my-element>
-    <input type="checkbox" name="joyful" value="yes" />
-  </my-element>
-  <span>Wrapper label tag</span>
-</label>`)
+`<my-element>
+  <input type="checkbox" name="joyful" value="yes" />
+</my-element>`)
     }
     showExample1()
     </script>

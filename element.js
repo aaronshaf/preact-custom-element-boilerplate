@@ -1,26 +1,36 @@
 /** @jsx preact.h */
 import preact from 'preact'
 import MyComponent from './components'
+import createElementClass from 'create-element-class'
 
-export default class MyCustomElement extends BabelHTMLElement {
+const MyElement = createElementClass({
+  connectedCallback() {
+    this.input = this.querySelector('input')
+    const srStyles = {
+      border: '0',
+      clip: 'rect(0 0 0 0)',
+      height: '1px',
+      margin: '-1px',
+      overflow: 'hidden',
+      padding: '0',
+      position: 'fixed',
+      width: '1px'
+    }
+    Object.keys(srStyles).forEach((key) => {
+      this.input.style[key] = srStyles[key]
+    })
+    this.updateRendering()
+  },
+
+  updateRendering() {
+    preact.render(<MyComponent input={this.input} />, this, this.lastChild)
+    this.rendered = true
+  },
+
   attributeChangedCallback(name, oldValue, newValue) {
     if (this.rendered) { this.updateRendering() }
   }
+})
+MyElement.observedAttributes = []
 
-  connectedCallback() {
-    this.updateRendering()
-  }
-
-  updateRendering() {
-    const a = preact.render(<MyComponent />, this, this.lastChild)
-    this.rendered = true
-  }
-}
-
-// https://github.com/w3c/webcomponents/issues/587#issuecomment-254126763
-function BabelHTMLElement() {
-  const newTarget = this.__proto__.constructor
-  return Reflect.construct(HTMLElement, [], newTarget)
-}
-Object.setPrototypeOf(BabelHTMLElement, HTMLElement)
-Object.setPrototypeOf(BabelHTMLElement.prototype, HTMLElement.prototype)
+export default MyElement
