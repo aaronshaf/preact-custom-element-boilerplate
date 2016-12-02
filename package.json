@@ -5,9 +5,7 @@
   },
   "main": "index.js",
   "files": [
-    "index.js",
-    "styles.css",
-    "imports.html"
+    "index.js"
   ],
   "devDependencies": {
     "babel-core": "^6.18.2",
