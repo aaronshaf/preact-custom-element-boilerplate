@@ -16,5 +16,3 @@ export default class MyComponent extends Component {
     )
   }
 }
-
-MyComponent.displayName = 'MyComponent'
